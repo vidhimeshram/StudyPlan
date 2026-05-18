@@ -542,7 +542,15 @@ function renderTasks() {
          </div>`;
 
     const emptyState = dueSoon.length === 0 && completed.length === 0
-      ? `<div class="tasks-empty-state">No tasks for this day yet.</div>`
+      ? `<div class="tasks-empty-state">
+           <div class="empty-state-icon">📅</div>
+           <div class="empty-state-title">No tasks for today</div>
+           <div class="empty-state-text">Your schedule is looking clear! Use this time to rest or start planning ahead.</div>
+           <button class="empty-state-cta" id="empty-state-add-btn">
+             <svg width="14" height="14" fill="none"><path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+             Add your first task
+           </button>
+         </div>`
       : '';
 
     tasksSection.innerHTML = actionBar +
@@ -555,17 +563,38 @@ function renderTasks() {
          </div>`;
 
     const titlePrefix = currentView === 'archived' ? 'Archived: ' : '';
-    const emptyStateText = currentView === 'archived' ? 'No archived tasks.' : 'No tasks yet. Add tasks from Smart Paste to get started.';
+    const emptyStateTitle = currentView === 'archived' ? 'No archived tasks' : 'Start your journey';
+    const emptyStateText = currentView === 'archived' 
+      ? 'Your archive is empty. Completed tasks you archive will appear here.' 
+      : 'No tasks yet! Start planning your study schedule and stay on top of your goals.';
+    const emptyStateIcon = currentView === 'archived' ? '📦' : '✨';
 
     const emptyState = dueSoon.length === 0 && thisWeek.length === 0 && completed.length === 0
-      ? `<div class="tasks-empty-state">${emptyStateText}</div>`
+      ? `<div class="tasks-empty-state">
+           <div class="empty-state-icon">${emptyStateIcon}</div>
+           <div class="empty-state-title">${emptyStateTitle}</div>
+           <div class="empty-state-text">${emptyStateText}</div>
+           ${currentView !== 'archived' ? `
+           <button class="empty-state-cta" id="empty-state-add-btn">
+             <svg width="14" height="14" fill="none"><path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+             Add your first task
+           </button>` : ''}
+         </div>`
       : '';
 
     tasksSection.innerHTML = actionBar +
-                             renderGroup(titlePrefix + '⚠ Due soon', dueSoon, 'var(--color-text-danger)', true)
+                             renderGroup(titlePrefix + '⚠ Due soon', dueSoon, 'var(--color-text-danger)', true) +
                              renderGroup(titlePrefix + 'This week', thisWeek, 'var(--color-text-secondary)', true) +
                              renderGroup(titlePrefix + 'Completed', completed, 'var(--color-text-tertiary)') +
                              emptyState;
+  }
+
+  // Bind CTA button in empty state
+  const emptyStateAddBtn = document.getElementById('empty-state-add-btn');
+  if (emptyStateAddBtn) {
+    emptyStateAddBtn.addEventListener('click', () => {
+      document.getElementById('add-task-btn')?.click();
+    });
   }
                            
   document.querySelectorAll('.task-item').forEach(el => {
