@@ -2160,3 +2160,35 @@ body {
   color: #ffcc66;
   font-weight: 600;
 }
+
+.subject-sidebar-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.subject-sidebar-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.subject-sidebar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.delete-subject-btn {
+  opacity: 0;
+  border: none;
+  background: transparent;
+  color: var(--color-text-danger);
+  cursor: pointer;
+  font-size: 14px;
+  transition: opacity 0.2s ease;
+}
+
+.subject-sidebar-item:hover .delete-subject-btn {
+  opacity: 1;
+}
