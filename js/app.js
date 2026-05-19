@@ -1076,3 +1076,29 @@ addItemsBtn.addEventListener('click', () => {
 downloadBtn.addEventListener('click', () => {
   downloadData();
 });
+
+// Motivational Quotes
+const quotes = [
+  "Small Progress is still Progress",
+  "Focus on being productive instead of busy",
+  "The secret of getting ahead is getting started",
+  "Strive for progress, not perfection",
+  "Don't wait for opportunity. Create it.",
+  "Success is the sum of small efforts repeated daily",
+  "Time is not refundable, use it with intention.",
+  "Sometimes, getting it done is better than perfect.",
+  "Believe you can and you're halfway there.",
+  "Arise, awake, and stop not till the goal is reached."
+];
+
+const quoteEl = document.getElementById('motivational-quotes');
+if (quoteEl) {
+  const today = new Date();
+  const seed = today.toDateString();
+  let hash = 0;
+  for (let i = 0; i < seed.length; i++) {
+    hash = seed.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const index = Math.abs(hash % quotes.length);
+  quoteEl.textContent = `${quotes[index]}`;
+}
