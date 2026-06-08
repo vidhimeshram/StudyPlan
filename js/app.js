@@ -851,7 +851,7 @@ function renderTasks() {
         notes,
         priority,
         estimated_duration,
-        is_estimated_duration_min: durationUnit === 'minutes' ? 1 : 0
+        is_estimated_duration_min: durationUnit === 'minutes' ? 1 : 0,
         labels
       });
     });
@@ -1298,7 +1298,7 @@ if (!subject_id) {
     status: 'Not Started',
     archived: 0,
     estimated_duration,
-    is_estimated_duration_min: selectedTaskDurationUnit === 'minutes' ? 1 : 0
+    is_estimated_duration_min: selectedTaskDurationUnit === 'minutes' ? 1 : 0,
     labels
   };
 
