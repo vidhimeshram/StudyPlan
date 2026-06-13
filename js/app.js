@@ -1284,6 +1284,45 @@ document.addEventListener('DOMContentLoaded', () => {
   const archivedTasksBtn = document.getElementById('archived-tasks-btn');
   const focusModeBtn = document.getElementById('focus-mode-btn');
 
+  // Header nav (Dashboard/Tasks/Calendar) wiring
+  const navDashboard = document.getElementById('nav-dashboard');
+  const navTasks = document.getElementById('nav-tasks');
+  const navCalendar = document.getElementById('nav-calendar');
+
+  function showAllTasksView() {
+    currentView = 'all-tasks';
+    document.querySelector('.cal-section')?.classList.add('hidden');
+    document.getElementById('tasks-section')?.classList.remove('hidden');
+    document.getElementById('focus-section')?.classList.add('hidden');
+    updateSidebarActive('all-tasks-btn');
+    renderTasks();
+  }
+
+  function showCalendarView() {
+    currentView = 'calendar';
+    document.querySelector('.cal-section')?.classList.remove('hidden');
+    document.getElementById('tasks-section')?.classList.remove('hidden');
+    document.getElementById('focus-section')?.classList.add('hidden');
+    updateSidebarActive('calendar-btn');
+    renderCalendar();
+    renderTasks();
+  }
+
+  navDashboard?.addEventListener('click', (e) => {
+    e.preventDefault();
+    showAllTasksView();
+  });
+
+  navTasks?.addEventListener('click', (e) => {
+    e.preventDefault();
+    showAllTasksView();
+  });
+
+  navCalendar?.addEventListener('click', (e) => {
+    e.preventDefault();
+    showCalendarView();
+  });
+
   function updateSidebarActive(id) {
     document.querySelectorAll('.sidebar .nav-item').forEach(el => el.classList.remove('active'));
     document.getElementById(id).classList.add('active');
